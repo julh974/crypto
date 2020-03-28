@@ -17,30 +17,33 @@ class DESViewController: UIViewController {
         
         let k = "bonjour"
         let key = "\\x0123456789abcdef"
-        print("\n==============================|| Préparation de la clé ||==============================\n")
-        print("PHASE 1 :\n")
-        let key_bin = getKey(key: k)
-        let tablePC = getTablePC1()
-        let key_pi = P(key_binaire: key_bin, PC1: tablePC)
-        print(key_pi,": key PC1 (",key_pi.count,")")
-        //let new_key_pi = PermuInit(key_binaire: key_bin, PC: tablePC) //8 bit en trop
-        //print("=======================\n",key_pi,"\n",new_key_pi)
-        let CD = C0D0(pc1: key_pi)
-        let C0 = CD[0]
-        let D0 = CD[1]
+//        print("\n==============================|| Préparation de la clé ||==============================\n")
+//        print("PHASE 1 :\n")
+//        let key_bin = getKey(key: k)
+//        let tablePC = getTablePC1()
+//        let key_pi = P(key_binaire: key_bin, PC1: tablePC)
+//        print(key_pi,": key PC1 (",key_pi.count,")")
+//        //let new_key_pi = PermuInit(key_binaire: key_bin, PC: tablePC) //8 bit en trop
+//        //print("=======================\n",key_pi,"\n",new_key_pi)
+//        let CD = C0D0(pc1: key_pi)
+//        let C0 = CD[0]
+//        let D0 = CD[1]
+//
+//        let tCs = getCs(C0: C0)
+//        let tDs = getDs(D0: D0)
+//        let PC2 = getTabPC2()
+//        let table_Ki = getKi(Ci: tCs, Di: tDs, PC2: PC2)
         
-        let tCs = getCs(C0: C0)
-        let tDs = getDs(D0: D0)
-        let PC2 = getTabPC2()
-        let table_Ki = getKi(Ci: tCs, Di: tDs, PC2: PC2)
+        print(diversKey(k: key))
+        let table_Ki = diversKey(k: k)
        
         
         //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
         print("\n==============================||      Préparation du texte       ||==============================\n")
         print("PHASE 2 :\n")
         
-        
-        let message = "secret" //si le nb est superieur à 8 -> on boucle le message
+        //GERER LES PLUSIEURS BLOCKS DE TEXTE
+        let message = "ok" //si le nb est superieur à 8 -> on boucle le message
         let message_int = getAsciiInt(m: message)
         let message_bin = IntToBin(List: message_int)
         let block_bin = ajustBloc(m: message_bin)
@@ -58,9 +61,21 @@ class DESViewController: UIViewController {
         print("\n==============================||       Itération schéma de Feistel       ||==============================\n")
         print("PHASE 3 :\n")
         
-        Confusion(D: D_0, K: table_Ki[0])
-        
-        
+        //Confusion(D: D_0, K: table_Ki[0])
+        //ReadS(i: 0, Ligne: 3, Colonne: 10)
+        var G : [String] = [D_0]
+        var D : [String] = [XOR(a: G_0, b: Confusion(D: D_0, K: table_Ki[0]))]
+        for i in 1..<table_Ki.count{
+            G.append(D[0])
+            D.append(XOR(a: G[i-1], b: Confusion(D: D[i-1], K: table_Ki[i])))
+        }
+        print("\n\n")
+//        print("Gi : ",G)
+//        print("Di : ",D)
+        let G16D16 = G[G.count-1]+D[D.count-1]
+        print("G16D16 = \(G16D16)")
+        let z = P(key_binaire: G16D16, PC1: getTableP_1())
+        print("final = \(z)")
         
         
         
@@ -68,22 +83,7 @@ class DESViewController: UIViewController {
         
     }
     
-    
-    //functions Data Encryption Standard
-    /*
-        64 bits -> (56 bits utilisé pour crypter et 8 bits de controle)
-     
-        Repose sur un schéma de Feistel
-        
-        Clé:
-            - calcul 16 sous clé de 48 bits chacune
-            - chaque block de 64 Bit subit les traitement suivants :
-                * Permutation Initial
-                * Itération : applique 16 fois le schema de Feistel; n-ième tour: fct confusion-diffusion
-                * Permutation finale
-     
-     
-     */
+   
     
     //function prenant que deux symbole max pour convertir un hex en Int
     func getAsciiInt(m : String) -> [Int]{//divise le message par caractère et stocke leur valeur décimal dans un tableau
@@ -416,14 +416,24 @@ class DESViewController: UIViewController {
         return tab
     }
     
-    func Confusion(D: String, K : String){
+    func Confusion(D: String, K : String) -> String{//retourne 4bits
         let tab_E = getTableExpansion()
         let D_E = P(key_binaire: D, PC1: tab_E)
         print("XOR")
-        print("\(D_E)\n\(K)")
-        print(XOR(a: D_E, b: K))
+        print("\(D_E): Expansion de D\n\(K): Ki")
+        print(XOR(a: D_E, b: K),": Resultat\n")
         let B = cut8(m: XOR(a: D_E, b: K))// Tableau de 8 morceaux de 6bits
         print(B)
+        //print(BinCoord(Bin: B[0]))
+        var f = ""
+        for i in 0..<B.count{
+            let coord = BinCoord(Bin: B[i])
+            print("S\(i+1) [\(coord[0])][\(coord[1])] = \(ReadS(i: i, Ligne: coord[0], Colonne: coord[1]))")
+            f.append(ReadS(i: i, Ligne: coord[0], Colonne: coord[1]))//32 BITS
+        }
+        let bin_final = P(key_binaire: f, PC1: getTablePF())
+        print("val Confusion : ",bin_final)
+        return bin_final
         
     }
     
@@ -456,7 +466,7 @@ class DESViewController: UIViewController {
             [7,13,14,3,0,6,9,10,1,2,8,5,11,12,4,15],
             [13,8,11,5,6,15,0,3,4,7,2,12,1,10,14,9],
             [10,6,9,0,12,11,7,13,15,1,3,14,5,2,8,4],
-            [3,15,0,6,10,1,13,8,9,41,5,11,12,7,2,14]
+            [3,15,0,6,10,1,13,8,9,4,5,11,12,7,2,14]
         
         ]
         
@@ -493,8 +503,83 @@ class DESViewController: UIViewController {
             [7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8],
             [2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11]
         ]
-        return [S1,S2,S3,S4,S6,S7,S8]
+        return [S1,S2,S3,S4,S5,S6,S7,S8]
     }
     
-
+    func BinCoord(Bin : String) -> [Int]{
+        let b = Array(Bin)
+        var ligne = ""
+        var colonne = ""
+        
+        ligne = String(b[0])+String(b[b.count-1])//premier et dernier bit
+        colonne = String(b[1])+String(b[2])+String(b[3])+String(b[4])
+        
+        //convertion binaire en décimal
+        //print("ligne = \(Int(ligne, radix: 2)!)")
+        //print("colonne = \(Int(colonne, radix: 2)!)")
+        
+        
+        return [Int(ligne, radix: 2)!, Int(colonne, radix: 2)! ] //retourne ligne puis colonne
+    }
+    
+    func ReadS(i:Int,Ligne:Int,Colonne:Int) -> String{
+        let S = getTableS()
+        let n = S[i][Ligne][Colonne]
+        
+        let b = String(n,radix: 2)
+        var bin = ""
+        for _ in b.count..<4{//met le nb binaire sur 4bits
+            bin.append("0")
+        }
+        bin.append(b)
+        return bin
+    }
+    
+    func getTablePF() -> [Int]{
+        let tab = [16,7,20,21,
+                   29,12,28,17,
+                   1,15,23,26,
+                   5,18,31,10,
+                   2,8,24,14,
+                   32,27,3,9,
+                   19,13,30,6,
+                   22,11,4,25]
+        return tab
+    }
+    
+    func diversKey(k:String) -> [String]{//transforme la clé en 16 sous clé
+        print("\n==============================|| Préparation de la clé ||==============================\n")
+        print("PHASE 1 :\n")
+        let key_bin = getKey(key: k)
+        let tablePC = getTablePC1()
+        let key_pi = P(key_binaire: key_bin, PC1: tablePC)
+        print(key_pi,": key PC1 (",key_pi.count,")")
+        //let new_key_pi = PermuInit(key_binaire: key_bin, PC: tablePC) //8 bit en trop
+        //print("=======================\n",key_pi,"\n",new_key_pi)
+        let CD = C0D0(pc1: key_pi)
+        let C0 = CD[0]
+        let D0 = CD[1]
+        
+        let tCs = getCs(C0: C0)
+        let tDs = getDs(D0: D0)
+        let PC2 = getTabPC2()
+        let table_Ki = getKi(Ci: tCs, Di: tDs, PC2: PC2)
+        
+        return table_Ki
+    }
+    
+    
+    func getTableP_1() -> [Int]{
+        let tab = [
+            16,7,20,21,
+            29,12,28,17,
+            1,15,23,26,
+            5,18,31,10,
+            2,8,24,14,
+            32,27,3,9,
+            19,13,30,6,
+            22,11,4,25
+        ]
+        return tab
+    }
 }
