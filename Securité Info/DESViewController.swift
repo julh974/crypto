@@ -17,27 +17,55 @@ class DESViewController: UIViewController {
         
         let key =     "\\x0123456789abcdef"
         let message = "Ok"
-        let table_Ki = diversKey(k: key)
-       
         
-        //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
-        print("\n==============================||      Préparation du texte       ||==============================\n")
-        print("PHASE 2 :\n")
+        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
+        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
         
-        //GERER LES PLUSIEURS BLOCKS DE TEXTE
-         //si le nb est superieur à 8 -> on boucle le message
+    }
+    
+    func prepareText(m:String) -> [String]{
+        let m_int = getAsciiInt(m: m)
+        var b = ""
+        var zero = ""
+        var tab_bin : [String] = []
+        for i in m_int{
+            b = String(i,radix:2)//convertion en binaire
+            for _ in b.count..<8{
+                zero.append("0")
+            }
+            b = zero + b
+            //print("b :",b)
+            tab_bin.append(b)//rajoute le nb binaire au tableau (8bits)
+            zero.removeAll()
+        }
+        //print("tab_bin : ",tab_bin)
+        var tab_block : [String] = []
+        var block = ""
+        for i in 0..<tab_bin.count{
+            if i % 8 == 7 { //fait des block de 64bits
+                block.append(tab_bin[i])
+                tab_block.append(block)
+                block.removeAll()
+            }else{
+                block.append(tab_bin[i])
+            }
+        }
         
-        let x = prepaMessage(m: message)
-        let i = 0
-        let Y = P(key_binaire: x[i], PC1: getTableP())
-        let G0D0 = getG0D0(Y: Y)
-        let G_0 = "01100110000000000110011011111111"//G0D0[0]
-        let D_0 = "01111000010101010111100001010101" //G0D0[1]
-        let z = feistel(Ki: table_Ki, G_0: G_0, D_0: D_0)
-        print("message coder : ",P(key_binaire: z, PC1: getTablePInv()))
+        tab_block.append(block)//permet d'avoir des block de 64 bit si il y a plus 64 bits
+        //print("tab_blocs : ",tab_block[tab_block.count - 1])
         
+        var bc = tab_block[tab_block.count - 1]//dernier block non completé
+        if bc.count < 64 {
+            for i in bc.count..<64{//completion du block
+                bc.append("0")
+            }
+            //supression du block incomplet dans le tableau
+            tab_block.remove(at: tab_block.count-1)
+            tab_block.append(bc)//ajout d'une nouveau bloc complété
+        }
         
-        
+        print(tab_block,":",tab_block[0].count)
+        return tab_block
     }
     
     
@@ -150,26 +178,26 @@ class DESViewController: UIViewController {
     }
     
     
-    func IntToBin(List : [Int]) -> String{//convertie un Int en binaire (String)
-        var tab : [String] = []
-        var b = ""
-        for i in List{
-            let bin = String(i,radix: 2)
-            
-            for _ in bin.count..<8 {
-                b.append("0")//rajoute le nombre de 0 (8bits)
-            }
-            //rajoute le 0 devant le nb binaire
-            b.append(bin)
-            tab.append(b)
-            b = ""
-        }
-        var a = ""
-        for i in tab{
-            a.append(i)//converti la table en String
-        }
-        return a
-    }
+//    func IntToBin(List : [Int]) -> String{//convertie un Int en binaire (String)
+//        var tab : [String] = []
+//        var b = ""
+//        for i in List{
+//            let bin = String(i,radix: 2)
+//
+//            for _ in bin.count..<8 {
+//                b.append("0")//rajoute le nombre de 0 (8bits)
+//            }
+//            //rajoute le 0 devant le nb binaire
+//            b.append(bin)
+//            tab.append(b)
+//            b = ""
+//        }
+//        var a = ""
+//        for i in tab{
+//            a.append(i)//converti la table en String
+//        }
+//        return a
+//    }
     
     func getKey(key: String) -> String{
         if key.count > 8 {//on gere le cas si l'hexadécimal represente un nombre et non une lettre
@@ -407,6 +435,23 @@ class DESViewController: UIViewController {
         return tab
     }
     
+    func getAsciiChar(t : [Int]) -> [String]{//affiche les lettres affichable sinon affiche l'e-hexa décimal
+         //print("Valeur modifier  : ",t)
+         var tab : [String] = []
+         for i in t {
+             //print(" i => ",i)
+             let char = UnicodeScalar(i)!
+             if Character(char).isLetter || Character(char).isNumber || Character(char).isSymbol || Character(char).isPunctuation {//test si les charactères sont affichables
+                 tab.append(String(Character(char)))
+             }else{
+                 //print("i  cast to Hex :",String(format: "%02X", i))//cast i en Hex
+                 let hex : String = "\\x" + String(format: "%02X", i)//on rajoute \x devant Hex
+                 tab.append(hex)
+            }
+        }
+        return tab
+    }
+    
     
     
     
@@ -612,5 +657,43 @@ class DESViewController: UIViewController {
             33,1,41,9,49,17,57,25,
         ]
         return t
+    }
+    
+    func cryptDes(message:String, key:String){
+        let table_Ki = diversKey(k: key)
+           
+            
+            //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
+            print("\n==============================||      Préparation du texte       ||==============================\n")
+            print("PHASE 2 :\n")
+            let x = prepareText(m: message)
+            var ens_message = ""
+            for i in 0..<x.count{
+        //      let x = prepaMessage(m: message)
+                //let i = 0
+                let Y = P(key_binaire: x[i], PC1: getTableP())
+                let G0D0 = getG0D0(Y: Y)
+
+                let G_0 = G0D0[0]
+                let D_0 = G0D0[1]
+                let z = feistel(Ki: table_Ki, G_0: G_0, D_0: D_0)
+                let result = P(key_binaire: z, PC1: getTablePInv())
+                print("message coder en binaire: ", result)
+                //print(cut8(m: result))
+                let res_t = cut8(m: result)//résultat binaire
+                var r_int : [Int] = []
+                for i in res_t{
+                    r_int.append(Int(i,radix: 2)!)
+                    print("ent = ",Int(i,radix: 2)!)
+                }
+                let t = getAsciiChar(t: r_int)
+                var mess = ""
+                for i in t{
+                    mess.append(i)
+                }
+                ens_message.append(mess)
+            }
+            print("message encoder = ", ens_message)
+            
     }
 }
