@@ -13,14 +13,94 @@ class DESViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //decryptage : X
+        
+        let key =     "hello"
+        let message = "bonjour"
+        //"\\x84hgæÎs®\\x0F"
+        
+        //let cry = cryptDes(message: message, key: key)
+        let decrypt = DecryptDes(message: "\\x84hgæÎs®\\x0F", key: key)
+        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
+        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
+        
+    }
     
-        
-        let key =     "\\x0123456789abcdef"
-        let message = "Ok"
-        
-        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
-        //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
-        
+    func cryptDes(message:String, key:String) -> String{
+            let table_Ki = diversKey(k: key)
+            //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
+            print("\n==============================||      Préparation du texte       ||==============================\n")
+            print("PHASE 2 :\n")
+            let x = prepareText(m: message)
+            var ens_message = ""
+            for i in 0..<x.count{
+                print("========================================* Bloc \(i+1) *========================================")
+        //      let x = prepaMessage(m: message)
+                //let i = 0
+                let Y = P(key_binaire: x[i], PC1: getTableP())
+                let G0D0 = getG0D0(Y: Y)
+
+                let G_0 = G0D0[0]
+                let D_0 = G0D0[1]
+                let z = feistel(Ki: table_Ki, G_0: G_0, D_0: D_0)
+                let result = P(key_binaire: z, PC1: getTablePInv())
+                print("message coder en binaire: ", result)
+                //print(cut8(m: result))
+                let res_t = cut8(m: result)//résultat binaire
+                var r_int : [Int] = []
+                for i in res_t{
+                    r_int.append(Int(i,radix: 2)!)
+                    //print("ent = ",Int(i,radix: 2)!)
+                }
+                let t = getAsciiChar(t: r_int)
+                var mess = ""
+                for i in t{
+                    mess.append(i)
+                }
+                ens_message.append(mess)
+            }
+            print("message encoder = ", ens_message)
+            return ens_message
+    }
+    
+    func DecryptDes(message:String, key:String) -> String{
+            let table_Ki = diversKey(k: key)
+            //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
+            print("\n==============================||      Préparation du texte       ||==============================\n")
+            print("PHASE 2 :\n")
+            let x = prepareText(m: message)
+            print("x: ",x)
+            var ens_message = ""
+            for i in 0..<x.count{
+                print("========================================* Bloc \(i+1) *========================================")
+                let Y = P(key_binaire: x[i], PC1: getTableP())
+                let G0D0 = getG0D0(Y: Y)
+
+                let G_0 = G0D0[0]
+                let D_0 = G0D0[1]
+                
+                //inversion des clé
+                let z = feistelInv(Ki: table_Ki, G_0: G_0, D_0: D_0)
+                
+                let result = P(key_binaire: z, PC1: getTablePInv())
+                print("message decoder en binaire: ", result)
+                //print(cut8(m: result))
+                let res_t = cut8(m: result)//résultat binaire
+                var r_int : [Int] = []
+                for i in res_t{
+                    r_int.append(Int(i,radix: 2)!)
+                    //print("ent = ",Int(i,radix: 2)!)
+                }
+                let t = getAsciiChar(t: r_int)
+                var mess = ""
+                for i in t{
+                    mess.append(i)
+                }
+                print("mess part  = ",mess)
+                ens_message.append(mess)
+            }
+            print("message decoder = ", ens_message)
+        return ens_message
     }
     
     func prepareText(m:String) -> [String]{
@@ -69,34 +149,34 @@ class DESViewController: UIViewController {
     }
     
     
-    func prepaMessage(m:String) -> [String]{
-        let message_int = getKey(key: m)//getAsciiInt(m: m)
-        print("txt :",message_int,"(\(message_int.count))")
-        
-        let message_bin = message_int //IntToBin(List: message_int)
-        if message_bin.count < 64{
-            //blocs de 64 bit
-            let m = Array(message_bin)
-            var tab_blocs : [String] = []
-            var bloc = ""
-            for i in 0..<message_bin.count{//crée des groupe de 64 bits
-                if i % 64 == 63 {
-                    bloc.append(m[i])
-                    tab_blocs.append(bloc)
-                    bloc.removeAll()
-                }else{
-                    bloc.append(m[i])
-                }
-            }
-            tab_blocs.append(ajustBloc(m: bloc))//gere le block incomplet
-            print("nombre de blocs générés : ",tab_blocs.count)
-            print("texte binaire = \(tab_blocs)")
-            return tab_blocs
-        }else{
-            return [message_bin]
-        }
-        
-    }
+//    func prepaMessage(m:String) -> [String]{
+//        let message_int = getKey(key: m)//getAsciiInt(m: m)
+//        print("txt :",message_int,"(\(message_int.count))")
+//
+//        let message_bin = message_int //IntToBin(List: message_int)
+//        if message_bin.count < 64{
+//            //blocs de 64 bit
+//            let m = Array(message_bin)
+//            var tab_blocs : [String] = []
+//            var bloc = ""
+//            for i in 0..<message_bin.count{//crée des groupe de 64 bits
+//                if i % 64 == 63 {
+//                    bloc.append(m[i])
+//                    tab_blocs.append(bloc)
+//                    bloc.removeAll()
+//                }else{
+//                    bloc.append(m[i])
+//                }
+//            }
+//            tab_blocs.append(ajustBloc(m: bloc))//gere le block incomplet
+//            print("nombre de blocs générés : ",tab_blocs.count)
+//            print("texte binaire = \(tab_blocs)")
+//            return tab_blocs
+//        }else{
+//            return [message_bin]
+//        }
+//
+//    }
     
     func feistel(Ki:[String],G_0:String,D_0:String)->String{
         print("\n==============================||       Itération schéma de Feistel       ||==============================\n")
@@ -122,7 +202,37 @@ class DESViewController: UIViewController {
             print("G\(i+1) = \(G[i])")
             print("D\(i+1) = \(D[i])")
 
-        }
+        }//                G     +     D
+        let G16D16 = D[G.count-1]+G[D.count-1]
+        print("G16D16 : ",P(key_binaire: G16D16, PC1: getTablePInv()))
+        return G16D16
+    }
+    
+    func feistelInv(Ki:[String],G_0:String,D_0:String)->String{
+        print("\n==============================||       Itération schéma de Feistel       ||==============================\n")
+        print("G0 = \(G_0)")
+        print("D0 = \(D_0)")
+        print("\n==============================||       Itération 1       ||==============================\n")
+        print("K\(16) = \(Ki[15])")
+        let tab_E = getTableExpansion()
+        var D_E = P(key_binaire: D_0, PC1: tab_E)
+        print("E = \(D_E)")
+
+        
+        var G : [String] = [D_0]
+        var D : [String] = [XOR(a: G_0, b: Confusion(D: D_0, K: Ki[15]))]
+        for i in 1..<Ki.count{
+            print("\n==============================||       Itération \(i+1)       ||==============================\n")
+            print("K\(16-i) = \(Ki[(15-i)])")
+            D_E = P(key_binaire: D[i-1], PC1: tab_E)
+            print("E = \(D_E)")
+    
+            G.append(D[i-1])
+            D.append(XOR(a: G[i-1], b: Confusion(D: D[i-1], K: Ki[15-i])))
+            print("G\(i+1) = \(G[i])")
+            print("D\(i+1) = \(D[i])")
+
+        }//                G     +     D
         let G16D16 = D[G.count-1]+G[D.count-1]
         print("G16D16 : ",P(key_binaire: G16D16, PC1: getTablePInv()))
         return G16D16
@@ -177,27 +287,6 @@ class DESViewController: UIViewController {
         return tab
     }
     
-    
-//    func IntToBin(List : [Int]) -> String{//convertie un Int en binaire (String)
-//        var tab : [String] = []
-//        var b = ""
-//        for i in List{
-//            let bin = String(i,radix: 2)
-//
-//            for _ in bin.count..<8 {
-//                b.append("0")//rajoute le nombre de 0 (8bits)
-//            }
-//            //rajoute le 0 devant le nb binaire
-//            b.append(bin)
-//            tab.append(b)
-//            b = ""
-//        }
-//        var a = ""
-//        for i in tab{
-//            a.append(i)//converti la table en String
-//        }
-//        return a
-//    }
     
     func getKey(key: String) -> String{
         if key.count > 8 {//on gere le cas si l'hexadécimal represente un nombre et non une lettre
@@ -659,41 +748,5 @@ class DESViewController: UIViewController {
         return t
     }
     
-    func cryptDes(message:String, key:String){
-        let table_Ki = diversKey(k: key)
-           
-            
-            //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
-            print("\n==============================||      Préparation du texte       ||==============================\n")
-            print("PHASE 2 :\n")
-            let x = prepareText(m: message)
-            var ens_message = ""
-            for i in 0..<x.count{
-        //      let x = prepaMessage(m: message)
-                //let i = 0
-                let Y = P(key_binaire: x[i], PC1: getTableP())
-                let G0D0 = getG0D0(Y: Y)
-
-                let G_0 = G0D0[0]
-                let D_0 = G0D0[1]
-                let z = feistel(Ki: table_Ki, G_0: G_0, D_0: D_0)
-                let result = P(key_binaire: z, PC1: getTablePInv())
-                print("message coder en binaire: ", result)
-                //print(cut8(m: result))
-                let res_t = cut8(m: result)//résultat binaire
-                var r_int : [Int] = []
-                for i in res_t{
-                    r_int.append(Int(i,radix: 2)!)
-                    print("ent = ",Int(i,radix: 2)!)
-                }
-                let t = getAsciiChar(t: r_int)
-                var mess = ""
-                for i in t{
-                    mess.append(i)
-                }
-                ens_message.append(mess)
-            }
-            print("message encoder = ", ens_message)
-            
-    }
+    
 }
