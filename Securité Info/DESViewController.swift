@@ -13,25 +13,107 @@ class DESViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //decryptage : X
+        // le decryptage ne marche pas ..
         
-        let key =     "hello"
-        let message = "bonjour"
-        //"\\x84hgæÎs®\\x0F"
+        let key =     "\\x0123456789abcdef"
+        let message = "Ok"
+       
         
-        //let cry = cryptDes(message: message, key: key)
-        let decrypt = DecryptDes(message: "\\x84hgæÎs®\\x0F", key: key)
+        let cry = cryptDes(message: message, key: key)
+        //let decrypt = DecryptDes(message: message, key: key)
+        
+        //Comparaison des résultat:
+        
         //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
         //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
+        
         
     }
+    
+    func prepareBloc(m:String) -> [String]{
+        let m_tabint = getAsciiInt(m: m)
+        let m_tabBin = getBinary(t: m_tabint)
+        let octets = ajustOctet(t: m_tabBin)
+        let tab_block = ajustXblock(t: octets)
+        let final_block = concatOctetToBloc(t: tab_block)
+        print("message binaire : ",final_block,"(",final_block.count,")")
+        
+        return final_block
+        
+    }
+    
+    func getBinary(t:[Int]) -> [String]{
+        var tab : [String] = []
+        for i in t {
+            tab.append(String(i, radix: 2))
+        }
+        return tab
+    }
+    
+    func ajustOctet(t:[String])->[String]{
+        var octet = ""
+        var tab : [String] = []
+        for x in t{
+            for _ in x.count..<8{//ajout les bit restant pour faire un octet
+                octet.append("0")
+            }
+            tab.append(octet+x)
+            octet.removeAll()//efface les zéro rajouté
+        }
+        return tab
+    }
+    
+    func ajustXblock(t:[String])->Array<Array<String>>{
+        let tab = Array(t)
+        if t.count <= 8{//gestion s'il y a moin de 64 bits
+            var bloc = t
+            for _ in t.count..<8{
+                bloc.append("00000000")
+            }
+            //print(bloc)
+            return [bloc]
+        }else{//il y a plus de 64 bits
+            var tab_bloc : Array<Array<String>> = []
+            var bloc : [String] = []
+            //car si c'est n Block de 64
+            for n in 0..<t.count{
+                if n % 8 == 7{
+                    bloc.append(tab[n])
+                    tab_bloc.append(bloc)
+                    bloc.removeAll()
+                }else{
+                    bloc.append(tab[n])
+                }
+            }
+            for _ in bloc.count..<8{
+                bloc.append("00000000")
+            }
+            tab_bloc.append(bloc)
+            //print(tab_bloc)
+            return tab_bloc
+        }
+    }
+    func concatOctetToBloc(t: Array<Array<String>>)->[String]{
+        var tab : [String] = []
+        var x = ""
+        for bloc in t{
+            for octet in bloc{
+                x.append(octet)
+            }
+            
+            tab.append(x)
+            x.removeAll()
+        }
+        return tab
+    }
+    
     
     func cryptDes(message:String, key:String) -> String{
             let table_Ki = diversKey(k: key)
             //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
             print("\n==============================||      Préparation du texte       ||==============================\n")
             print("PHASE 2 :\n")
-            let x = prepareText(m: message)
+            let x = prepareBloc(m: message)
             var ens_message = ""
             for i in 0..<x.count{
                 print("========================================* Bloc \(i+1) *========================================")
@@ -64,11 +146,11 @@ class DESViewController: UIViewController {
     }
     
     func DecryptDes(message:String, key:String) -> String{
-            let table_Ki = diversKey(k: key)
+            var table_Ki = diversKey(k: key)
             //print("\n==============================|| Fin de la préparation de la clé ||==============================\n")
             print("\n==============================||      Préparation du texte       ||==============================\n")
             print("PHASE 2 :\n")
-            let x = prepareText(m: message)
+            let x =  prepareBloc(m: message)
             print("x: ",x)
             var ens_message = ""
             for i in 0..<x.count{
@@ -80,7 +162,8 @@ class DESViewController: UIViewController {
                 let D_0 = G0D0[1]
                 
                 //inversion des clé
-                let z = feistelInv(Ki: table_Ki, G_0: G_0, D_0: D_0)
+                
+                let z = feistelInv(Kt: table_Ki, G_0: G_0, D_0: D_0)
                 
                 let result = P(key_binaire: z, PC1: getTablePInv())
                 print("message decoder en binaire: ", result)
@@ -103,80 +186,7 @@ class DESViewController: UIViewController {
         return ens_message
     }
     
-    func prepareText(m:String) -> [String]{
-        let m_int = getAsciiInt(m: m)
-        var b = ""
-        var zero = ""
-        var tab_bin : [String] = []
-        for i in m_int{
-            b = String(i,radix:2)//convertion en binaire
-            for _ in b.count..<8{
-                zero.append("0")
-            }
-            b = zero + b
-            //print("b :",b)
-            tab_bin.append(b)//rajoute le nb binaire au tableau (8bits)
-            zero.removeAll()
-        }
-        //print("tab_bin : ",tab_bin)
-        var tab_block : [String] = []
-        var block = ""
-        for i in 0..<tab_bin.count{
-            if i % 8 == 7 { //fait des block de 64bits
-                block.append(tab_bin[i])
-                tab_block.append(block)
-                block.removeAll()
-            }else{
-                block.append(tab_bin[i])
-            }
-        }
-        
-        tab_block.append(block)//permet d'avoir des block de 64 bit si il y a plus 64 bits
-        //print("tab_blocs : ",tab_block[tab_block.count - 1])
-        
-        var bc = tab_block[tab_block.count - 1]//dernier block non completé
-        if bc.count < 64 {
-            for i in bc.count..<64{//completion du block
-                bc.append("0")
-            }
-            //supression du block incomplet dans le tableau
-            tab_block.remove(at: tab_block.count-1)
-            tab_block.append(bc)//ajout d'une nouveau bloc complété
-        }
-        
-        print(tab_block,":",tab_block[0].count)
-        return tab_block
-    }
-    
-    
-//    func prepaMessage(m:String) -> [String]{
-//        let message_int = getKey(key: m)//getAsciiInt(m: m)
-//        print("txt :",message_int,"(\(message_int.count))")
-//
-//        let message_bin = message_int //IntToBin(List: message_int)
-//        if message_bin.count < 64{
-//            //blocs de 64 bit
-//            let m = Array(message_bin)
-//            var tab_blocs : [String] = []
-//            var bloc = ""
-//            for i in 0..<message_bin.count{//crée des groupe de 64 bits
-//                if i % 64 == 63 {
-//                    bloc.append(m[i])
-//                    tab_blocs.append(bloc)
-//                    bloc.removeAll()
-//                }else{
-//                    bloc.append(m[i])
-//                }
-//            }
-//            tab_blocs.append(ajustBloc(m: bloc))//gere le block incomplet
-//            print("nombre de blocs générés : ",tab_blocs.count)
-//            print("texte binaire = \(tab_blocs)")
-//            return tab_blocs
-//        }else{
-//            return [message_bin]
-//        }
-//
-//    }
+
     
     func feistel(Ki:[String],G_0:String,D_0:String)->String{
         print("\n==============================||       Itération schéma de Feistel       ||==============================\n")
@@ -191,7 +201,7 @@ class DESViewController: UIViewController {
         
         var G : [String] = [D_0]
         var D : [String] = [XOR(a: G_0, b: Confusion(D: D_0, K: Ki[0]))]
-                for i in 1..<Ki.count{
+        for i in 1..<Ki.count{
             print("\n==============================||       Itération \(i+1)       ||==============================\n")
             print("K = \(Ki[i])")
             D_E = P(key_binaire: D[i-1], PC1: tab_E)
@@ -208,27 +218,30 @@ class DESViewController: UIViewController {
         return G16D16
     }
     
-    func feistelInv(Ki:[String],G_0:String,D_0:String)->String{
+    func feistelInv(Kt:[String],G_0:String,D_0:String)->String{
         print("\n==============================||       Itération schéma de Feistel       ||==============================\n")
         print("G0 = \(G_0)")
         print("D0 = \(D_0)")
         print("\n==============================||       Itération 1       ||==============================\n")
-        print("K\(16) = \(Ki[15])")
+        
+        var Ki = Kt
+        Ki.reverse()//On inverse les éléments de Ki Ex: le 1er element devient le dernier element etc...
+        print("K\(16) = \(Ki[0])")
         let tab_E = getTableExpansion()
-        var D_E = P(key_binaire: D_0, PC1: tab_E)
+        var D_E = P(key_binaire: D_0, PC1: tab_E) //Expansion de D
         print("E = \(D_E)")
 
         
         var G : [String] = [D_0]
-        var D : [String] = [XOR(a: G_0, b: Confusion(D: D_0, K: Ki[15]))]
+        var D : [String] = [XOR(a: G_0, b: Confusion(D: D_0, K: Ki[0]))]
         for i in 1..<Ki.count{
             print("\n==============================||       Itération \(i+1)       ||==============================\n")
-            print("K\(16-i) = \(Ki[(15-i)])")
+            print("K\(i) = \(Ki[(i)])")
             D_E = P(key_binaire: D[i-1], PC1: tab_E)
             print("E = \(D_E)")
     
             G.append(D[i-1])
-            D.append(XOR(a: G[i-1], b: Confusion(D: D[i-1], K: Ki[15-i])))
+            D.append(XOR(a: G[i-1], b: Confusion(D: D[i-1], K: Ki[i])))
             print("G\(i+1) = \(G[i])")
             print("D\(i+1) = \(D[i])")
 
@@ -237,6 +250,9 @@ class DESViewController: UIViewController {
         print("G16D16 : ",P(key_binaire: G16D16, PC1: getTablePInv()))
         return G16D16
     }
+    
+    
+    
     
     func Confusion(D: String, K : String) -> String{//retourne 4bits
         let tab_E = getTableExpansion()
@@ -530,7 +546,7 @@ class DESViewController: UIViewController {
          for i in t {
              //print(" i => ",i)
              let char = UnicodeScalar(i)!
-             if Character(char).isLetter || Character(char).isNumber || Character(char).isSymbol || Character(char).isPunctuation {//test si les charactères sont affichables
+            if Character(char).isLetter || Character(char).isNumber || Character(char).isSymbol || Character(char).isPunctuation || char.value == 0{//test si les charactères sont affichables
                  tab.append(String(Character(char)))
              }else{
                  //print("i  cast to Hex :",String(format: "%02X", i))//cast i en Hex
@@ -581,6 +597,7 @@ class DESViewController: UIViewController {
         print("PHASE 1 :\n")
         print("clé = \(k)\n")
         let key_bin = getKey(key: k)
+        print("key modifier : ",key_bin)
         let tablePC = getTablePC1()
         let key_pi = P(key_binaire: key_bin, PC1: tablePC)
         //print(key_pi,": key PC1 (",key_pi.count,")")

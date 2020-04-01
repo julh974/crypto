@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YJN-aZ-5AM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aig-IU-GpG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -87,6 +87,13 @@
                                     <segue destination="YJN-aZ-5AM" kind="push" id="Q4C-nS-xNW"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Js0-Gr-0N9">
+                                <rect key="frame" x="192" y="574" width="30" height="30"/>
+                                <state key="normal" title="RSA"/>
+                                <connections>
+                                    <segue destination="dtb-dg-QJ0" kind="push" id="ooF-Dw-bAA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -103,9 +110,11 @@
                             <constraint firstItem="FKb-Hm-aC0" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="fSd-Rr-0CW"/>
                             <constraint firstItem="MJ9-NH-rTZ" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="h0L-fF-drp"/>
                             <constraint firstItem="qEr-cw-Orb" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="ova-ZU-9dA"/>
+                            <constraint firstItem="Js0-Gr-0N9" firstAttribute="top" secondItem="FKb-Hm-aC0" secondAttribute="bottom" constant="20" id="tCC-N1-ZBQ"/>
                             <constraint firstItem="JMa-gj-vph" firstAttribute="top" secondItem="qEr-cw-Orb" secondAttribute="bottom" constant="20" id="vh8-0q-mH8"/>
                             <constraint firstItem="skO-Cv-iFZ" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="wgr-ZP-juc"/>
                             <constraint firstItem="JMa-gj-vph" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="zOf-As-blD"/>
+                            <constraint firstItem="Js0-Gr-0N9" firstAttribute="centerX" secondItem="u25-wh-FdX" secondAttribute="centerX" id="zms-rk-hAk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1g1-9s-Hrk"/>
                     </view>
@@ -124,29 +133,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0P5-Do-ICw">
-                                <rect key="frame" x="10" y="113" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OLA-qd-SDH">
-                                <rect key="frame" x="10" y="157" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Clé" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s42-a4-Dvh">
-                                <rect key="frame" x="10" y="201" width="394" height="34"/>
+                                <rect key="frame" x="10" y="226" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCv-6e-Mgn">
-                                <rect key="frame" x="100" y="285" width="52" height="30"/>
+                                <rect key="frame" x="100" y="310" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="mWE-kl-JBh" eventType="touchUpInside" id="0NY-g8-YhF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrA-jK-f2y">
-                                <rect key="frame" x="245" y="285" width="69" height="30"/>
+                                <rect key="frame" x="245" y="310" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Decrypt:" destination="mWE-kl-JBh" eventType="touchUpInside" id="arF-Q6-KdG"/>
@@ -167,7 +176,7 @@
                             <constraint firstItem="VrA-jK-f2y" firstAttribute="top" secondItem="s42-a4-Dvh" secondAttribute="bottom" constant="50" id="gJH-JI-vNu"/>
                             <constraint firstItem="fCv-6e-Mgn" firstAttribute="leading" secondItem="2yB-as-ITK" secondAttribute="leading" constant="100" id="ioP-6N-PPF"/>
                             <constraint firstItem="s42-a4-Dvh" firstAttribute="leading" secondItem="2yB-as-ITK" secondAttribute="leading" constant="10" id="nRC-32-oqT"/>
-                            <constraint firstItem="0P5-Do-ICw" firstAttribute="top" secondItem="2yB-as-ITK" secondAttribute="top" constant="25" id="weQ-VQ-zcA"/>
+                            <constraint firstItem="0P5-Do-ICw" firstAttribute="top" secondItem="2yB-as-ITK" secondAttribute="top" constant="50" id="weQ-VQ-zcA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2yB-as-ITK"/>
                     </view>
@@ -191,29 +200,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LXD-nL-JU8">
-                                <rect key="frame" x="10" y="108" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UXa-Cm-WiD">
-                                <rect key="frame" x="10" y="152" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="clé" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-NX-X8r">
-                                <rect key="frame" x="10" y="196" width="394" height="34"/>
+                                <rect key="frame" x="10" y="226" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFr-cV-EFs">
-                                <rect key="frame" x="100" y="280" width="52" height="30"/>
+                                <rect key="frame" x="100" y="310" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_crypter:" destination="0OT-Mb-QcK" eventType="touchUpInside" id="phS-E6-e2Z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkV-gx-D3N">
-                                <rect key="frame" x="245" y="280" width="69" height="30"/>
+                                <rect key="frame" x="245" y="310" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Decrypter:" destination="0OT-Mb-QcK" eventType="touchUpInside" id="PcK-sv-g4V"/>
@@ -233,7 +242,7 @@
                             <constraint firstItem="7OI-nz-2Xd" firstAttribute="trailing" secondItem="lz7-NX-X8r" secondAttribute="trailing" constant="10" id="eEw-qJ-jS9"/>
                             <constraint firstItem="UXa-Cm-WiD" firstAttribute="leading" secondItem="7OI-nz-2Xd" secondAttribute="leading" constant="10" id="fNp-Ig-rqw"/>
                             <constraint firstItem="UXa-Cm-WiD" firstAttribute="top" secondItem="LXD-nL-JU8" secondAttribute="bottom" constant="10" id="lXT-Tv-GET"/>
-                            <constraint firstItem="LXD-nL-JU8" firstAttribute="top" secondItem="7OI-nz-2Xd" secondAttribute="top" constant="20" id="nb2-LF-9yD"/>
+                            <constraint firstItem="LXD-nL-JU8" firstAttribute="top" secondItem="7OI-nz-2Xd" secondAttribute="top" constant="50" id="nb2-LF-9yD"/>
                             <constraint firstItem="ZFr-cV-EFs" firstAttribute="top" secondItem="lz7-NX-X8r" secondAttribute="bottom" constant="50" id="xJu-FQ-Xhz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7OI-nz-2Xd"/>
@@ -258,24 +267,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEM-QS-akW">
-                                <rect key="frame" x="10" y="113" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G3I-ST-REH">
-                                <rect key="frame" x="10" y="157" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSX-GE-EHF">
-                                <rect key="frame" x="100" y="241" width="52" height="30"/>
+                                <rect key="frame" x="100" y="266" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="ZQb-Ra-7un" eventType="touchUpInside" id="tWd-d1-I4E"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pu-rE-Est">
-                                <rect key="frame" x="245" y="241" width="69" height="30"/>
+                                <rect key="frame" x="245" y="266" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Decrypt:" destination="ZQb-Ra-7un" eventType="touchUpInside" id="3Qv-1d-rb7"/>
@@ -286,7 +295,7 @@
                         <constraints>
                             <constraint firstItem="dEM-QS-akW" firstAttribute="centerX" secondItem="yGC-jY-RzZ" secondAttribute="centerX" id="0lH-yU-60g"/>
                             <constraint firstItem="VSX-GE-EHF" firstAttribute="leading" secondItem="WA1-jo-f2V" secondAttribute="leading" constant="100" id="8aL-Qn-f1U"/>
-                            <constraint firstItem="dEM-QS-akW" firstAttribute="top" secondItem="WA1-jo-f2V" secondAttribute="top" constant="25" id="DVx-M2-FnB"/>
+                            <constraint firstItem="dEM-QS-akW" firstAttribute="top" secondItem="WA1-jo-f2V" secondAttribute="top" constant="50" id="DVx-M2-FnB"/>
                             <constraint firstItem="WA1-jo-f2V" firstAttribute="trailing" secondItem="dEM-QS-akW" secondAttribute="trailing" constant="10" id="Jbh-e0-IAN"/>
                             <constraint firstItem="G3I-ST-REH" firstAttribute="leading" secondItem="WA1-jo-f2V" secondAttribute="leading" constant="10" id="Lvl-8M-yLE"/>
                             <constraint firstItem="G3I-ST-REH" firstAttribute="centerX" secondItem="yGC-jY-RzZ" secondAttribute="centerX" id="UUL-zu-GKQ"/>
@@ -334,29 +343,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O0Z-HF-xy9">
-                                <rect key="frame" x="10" y="157" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Clair" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UmR-EZ-Vf4">
-                                <rect key="frame" x="10" y="113" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="clé" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1pf-Wx-u2J">
-                                <rect key="frame" x="10" y="201" width="394" height="34"/>
+                                <rect key="frame" x="10" y="226" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1l7-MO-tGm">
-                                <rect key="frame" x="100" y="285" width="52" height="30"/>
+                                <rect key="frame" x="100" y="310" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="lzQ-dJ-x6K" eventType="touchUpInside" id="KUa-Pq-Ewy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6N3-am-VAd">
-                                <rect key="frame" x="245" y="285" width="69" height="30"/>
+                                <rect key="frame" x="245" y="310" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Decrypt:" destination="lzQ-dJ-x6K" eventType="touchUpInside" id="g2N-jF-z60"/>
@@ -380,7 +389,7 @@
                             <constraint firstItem="Jv0-df-2Sq" firstAttribute="trailing" secondItem="1pf-Wx-u2J" secondAttribute="trailing" constant="10" id="feL-Ay-aMv"/>
                             <constraint firstItem="UmR-EZ-Vf4" firstAttribute="leading" secondItem="Jv0-df-2Sq" secondAttribute="leading" constant="10" id="gXe-nQ-1kF"/>
                             <constraint firstItem="1l7-MO-tGm" firstAttribute="top" secondItem="1pf-Wx-u2J" secondAttribute="bottom" constant="50" id="hna-qx-Plq"/>
-                            <constraint firstItem="UmR-EZ-Vf4" firstAttribute="top" secondItem="Jv0-df-2Sq" secondAttribute="top" constant="25" id="vDK-XJ-qze"/>
+                            <constraint firstItem="UmR-EZ-Vf4" firstAttribute="top" secondItem="Jv0-df-2Sq" secondAttribute="top" constant="50" id="vDK-XJ-qze"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jv0-df-2Sq"/>
                     </view>
@@ -404,22 +413,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bXD-4g-KoF">
-                                <rect key="frame" x="10" y="113" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YsK-tv-2L0">
-                                <rect key="frame" x="10" y="157" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Clé" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RpD-zm-V2c">
-                                <rect key="frame" x="10" y="201" width="394" height="34"/>
+                                <rect key="frame" x="10" y="226" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssw-vR-nNo">
-                                <rect key="frame" x="245" y="285" width="69" height="30"/>
+                                <rect key="frame" x="245" y="310" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="LWe-f3-Ovh" eventType="touchUpInside" id="0lQ-UK-HUb"/>
@@ -427,7 +436,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEd-HU-PUL">
-                                <rect key="frame" x="100" y="285" width="52" height="30"/>
+                                <rect key="frame" x="100" y="310" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="LWe-f3-Ovh" eventType="touchUpInside" id="vyj-OS-1ve"/>
@@ -437,7 +446,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ssw-vR-nNo" firstAttribute="top" secondItem="RpD-zm-V2c" secondAttribute="bottom" constant="50" id="4BI-wk-Cg5"/>
-                            <constraint firstItem="bXD-4g-KoF" firstAttribute="top" secondItem="OdJ-cl-JxO" secondAttribute="top" constant="25" id="5Ax-iJ-thZ"/>
+                            <constraint firstItem="bXD-4g-KoF" firstAttribute="top" secondItem="OdJ-cl-JxO" secondAttribute="top" constant="50" id="5Ax-iJ-thZ"/>
                             <constraint firstItem="YsK-tv-2L0" firstAttribute="leading" secondItem="OdJ-cl-JxO" secondAttribute="leading" constant="10" id="5IR-uP-aMh"/>
                             <constraint firstItem="OdJ-cl-JxO" firstAttribute="trailing" secondItem="RpD-zm-V2c" secondAttribute="trailing" constant="10" id="7cr-Cs-fe3"/>
                             <constraint firstItem="BEd-HU-PUL" firstAttribute="leading" secondItem="OdJ-cl-JxO" secondAttribute="leading" constant="100" id="9eh-eh-JXh"/>
@@ -475,46 +484,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message Clair" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DJn-Sb-iil">
-                                <rect key="frame" x="10" y="113" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vuW-kU-CUZ">
-                                <rect key="frame" x="10" y="157" width="394" height="34"/>
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="a" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fcP-vZ-TU6">
-                                <rect key="frame" x="128" y="211" width="36" height="34"/>
+                                <rect key="frame" x="128" y="236" width="36" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="b" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Arx-2r-7eZ">
-                                <rect key="frame" x="168" y="211" width="32" height="34"/>
+                                <rect key="frame" x="170" y="236" width="32" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="c" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dFs-Ao-LjR">
-                                <rect key="frame" x="210" y="211" width="32" height="34"/>
+                                <rect key="frame" x="210" y="236" width="32" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enE-3U-uBf">
-                                <rect key="frame" x="121" y="295" width="52" height="30"/>
+                                <rect key="frame" x="121" y="320" width="52" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="Btn_Crypt:" destination="MFd-jU-aKw" eventType="touchUpInside" id="7un-tO-DXm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgn-ZW-eT8">
-                                <rect key="frame" x="251" y="295" width="69" height="30"/>
+                                <rect key="frame" x="251" y="320" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Btn_Decrypt:" destination="MFd-jU-aKw" eventType="touchUpInside" id="196-c0-gaC"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="d" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eYF-l6-JGO">
-                                <rect key="frame" x="250" y="211" width="36.5" height="34"/>
+                                <rect key="frame" x="250" y="236" width="36.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -525,7 +534,7 @@
                             <constraint firstItem="vuW-kU-CUZ" firstAttribute="leading" secondItem="dP5-bP-9ch" secondAttribute="leading" constant="10" id="3YD-vn-tgu"/>
                             <constraint firstItem="kgn-ZW-eT8" firstAttribute="leading" secondItem="enE-3U-uBf" secondAttribute="trailing" constant="78" id="B29-Yh-pJV"/>
                             <constraint firstItem="eYF-l6-JGO" firstAttribute="top" secondItem="vuW-kU-CUZ" secondAttribute="bottom" constant="20" id="Fpl-ee-Q8v"/>
-                            <constraint firstItem="DJn-Sb-iil" firstAttribute="top" secondItem="dP5-bP-9ch" secondAttribute="top" constant="25" id="Grk-Hr-7pv"/>
+                            <constraint firstItem="DJn-Sb-iil" firstAttribute="top" secondItem="dP5-bP-9ch" secondAttribute="top" constant="50" id="Grk-Hr-7pv"/>
                             <constraint firstItem="eYF-l6-JGO" firstAttribute="leading" secondItem="dFs-Ao-LjR" secondAttribute="trailing" constant="10" id="ICt-ka-XXa"/>
                             <constraint firstItem="dP5-bP-9ch" firstAttribute="trailing" secondItem="DJn-Sb-iil" secondAttribute="trailing" constant="10" id="JoU-ly-Ql7"/>
                             <constraint firstItem="dP5-bP-9ch" firstAttribute="trailing" secondItem="vuW-kU-CUZ" secondAttribute="trailing" constant="10" id="Q2U-RO-pmH"/>
@@ -565,24 +574,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Clair" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1O-EG-Ndt">
-                                <rect key="frame" x="10" y="123" width="394" height="34"/>
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Crypté" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hns-nt-3X7">
-                                <rect key="frame" x="10" y="165" width="394" height="34"/>
+                                <rect key="frame" x="10" y="180" width="394" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ymq-eO-6JW">
-                                <rect key="frame" x="10" y="257" width="394" height="30"/>
+                                <rect key="frame" x="10" y="272" width="394" height="30"/>
                                 <state key="normal" title="Crypter"/>
                                 <connections>
                                     <action selector="BCrypt:" destination="eFD-iw-ISg" eventType="touchUpInside" id="Foc-Zs-UY3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n70-OX-Eg7">
-                                <rect key="frame" x="10" y="295" width="394" height="30"/>
+                                <rect key="frame" x="10" y="310" width="394" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
                                     <action selector="Bdecrypt:" destination="eFD-iw-ISg" eventType="touchUpInside" id="IyU-qf-hVx"/>
@@ -604,7 +613,7 @@
                             <constraint firstItem="k1O-EG-Ndt" firstAttribute="leading" secondItem="PdY-ST-gRj" secondAttribute="leading" constant="10" id="deV-Fc-sZk"/>
                             <constraint firstItem="Ymq-eO-6JW" firstAttribute="centerX" secondItem="0TP-aS-Thf" secondAttribute="centerX" id="eo6-sK-y4R"/>
                             <constraint firstItem="Hns-nt-3X7" firstAttribute="leading" secondItem="PdY-ST-gRj" secondAttribute="leading" constant="10" id="h08-aD-wWQ"/>
-                            <constraint firstItem="k1O-EG-Ndt" firstAttribute="top" secondItem="PdY-ST-gRj" secondAttribute="top" constant="35" id="lm4-M7-0BR"/>
+                            <constraint firstItem="k1O-EG-Ndt" firstAttribute="top" secondItem="PdY-ST-gRj" secondAttribute="top" constant="50" id="lm4-M7-0BR"/>
                             <constraint firstItem="PdY-ST-gRj" firstAttribute="trailing" secondItem="Hns-nt-3X7" secondAttribute="trailing" constant="10" id="svn-y2-9Hv"/>
                             <constraint firstItem="PdY-ST-gRj" firstAttribute="trailing" secondItem="k1O-EG-Ndt" secondAttribute="trailing" constant="10" id="vjk-sp-ELb"/>
                         </constraints>
@@ -619,6 +628,104 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Xs-hN-lDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="535" y="-1291"/>
+        </scene>
+        <!--RSA-->
+        <scene sceneID="Bwx-3n-cpW">
+            <objects>
+                <viewController id="dtb-dg-QJ0" customClass="RSAViewController" customModule="Securite__Info" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KsO-r7-9zp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fi9-Xo-cDv">
+                                <rect key="frame" x="245" y="433" width="69" height="30"/>
+                                <state key="normal" title="Décrypter"/>
+                                <connections>
+                                    <action selector="decrypt:" destination="dtb-dg-QJ0" eventType="touchUpInside" id="JSF-dc-zad"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuZ-dE-GDh">
+                                <rect key="frame" x="207" y="300" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message Claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KfH-8g-toh">
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message crypter" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="87h-z3-AC9">
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="P" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-K9-zVX">
+                                <rect key="frame" x="10" y="226" width="138" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Q" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KGf-rE-S99">
+                                <rect key="frame" x="156" y="226" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="3bl-Sd-2rr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oia-qo-RvV">
+                                <rect key="frame" x="284" y="226" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="C2S-8e-00z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7MN-CN-8fJ">
+                                <rect key="frame" x="100" y="433" width="52" height="30"/>
+                                <state key="normal" title="Crypter"/>
+                                <connections>
+                                    <action selector="crypt:" destination="dtb-dg-QJ0" eventType="touchUpInside" id="G6n-fO-QVK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KGf-rE-S99" firstAttribute="leading" secondItem="Ebv-K9-zVX" secondAttribute="trailing" constant="8" id="2v9-8S-y1P"/>
+                            <constraint firstItem="dFd-ZA-paL" firstAttribute="trailing" secondItem="KfH-8g-toh" secondAttribute="trailing" constant="10" id="4h4-s6-eQU"/>
+                            <constraint firstItem="KfH-8g-toh" firstAttribute="leading" secondItem="dFd-ZA-paL" secondAttribute="leading" constant="10" id="5Us-sy-Loq"/>
+                            <constraint firstItem="KGf-rE-S99" firstAttribute="top" secondItem="87h-z3-AC9" secondAttribute="bottom" constant="10" id="7uM-7X-I2d"/>
+                            <constraint firstItem="dFd-ZA-paL" firstAttribute="trailing" secondItem="87h-z3-AC9" secondAttribute="trailing" constant="10" id="BTw-nP-Ymf"/>
+                            <constraint firstItem="AuZ-dE-GDh" firstAttribute="top" secondItem="KGf-rE-S99" secondAttribute="bottom" constant="40" id="CtY-aE-jZd"/>
+                            <constraint firstItem="fi9-Xo-cDv" firstAttribute="centerY" secondItem="KsO-r7-9zp" secondAttribute="centerY" id="Eh5-jY-sOa"/>
+                            <constraint firstItem="dFd-ZA-paL" firstAttribute="trailing" secondItem="Oia-qo-RvV" secondAttribute="trailing" constant="10" id="FUa-p2-pQF"/>
+                            <constraint firstItem="dFd-ZA-paL" firstAttribute="trailing" secondItem="fi9-Xo-cDv" secondAttribute="trailing" constant="100" id="KX9-5l-MBQ"/>
+                            <constraint firstItem="7MN-CN-8fJ" firstAttribute="centerY" secondItem="KsO-r7-9zp" secondAttribute="centerY" id="Smu-vH-HIn"/>
+                            <constraint firstItem="7MN-CN-8fJ" firstAttribute="leading" secondItem="dFd-ZA-paL" secondAttribute="leading" constant="100" id="Tb3-xT-m8g"/>
+                            <constraint firstItem="Ebv-K9-zVX" firstAttribute="leading" secondItem="dFd-ZA-paL" secondAttribute="leading" constant="10" id="d6p-ob-sZk"/>
+                            <constraint firstItem="87h-z3-AC9" firstAttribute="leading" secondItem="dFd-ZA-paL" secondAttribute="leading" constant="10" id="eP7-0M-vY3"/>
+                            <constraint firstItem="Ebv-K9-zVX" firstAttribute="top" secondItem="87h-z3-AC9" secondAttribute="bottom" constant="10" id="ehM-uR-1Z3"/>
+                            <constraint firstItem="Oia-qo-RvV" firstAttribute="leading" secondItem="KGf-rE-S99" secondAttribute="trailing" constant="8" id="gVo-M9-bqL"/>
+                            <constraint firstItem="Oia-qo-RvV" firstAttribute="top" secondItem="87h-z3-AC9" secondAttribute="bottom" constant="10" id="geb-rT-kfv"/>
+                            <constraint firstItem="AuZ-dE-GDh" firstAttribute="centerX" secondItem="KsO-r7-9zp" secondAttribute="centerX" id="h7J-9m-Kaw"/>
+                            <constraint firstItem="KfH-8g-toh" firstAttribute="top" secondItem="dFd-ZA-paL" secondAttribute="top" constant="50" id="jYv-wk-78L"/>
+                            <constraint firstItem="87h-z3-AC9" firstAttribute="top" secondItem="KfH-8g-toh" secondAttribute="bottom" constant="10" id="tJd-Wm-glN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dFd-ZA-paL"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="RSA" id="7C7-dm-FGK"/>
+                    <connections>
+                        <outlet property="Label_error" destination="AuZ-dE-GDh" id="hJl-Fj-mc5"/>
+                        <outlet property="TextField_Claire" destination="KfH-8g-toh" id="ZeN-oI-44f"/>
+                        <outlet property="TextField_Crypt" destination="87h-z3-AC9" id="Eff-WH-Roh"/>
+                        <outlet property="TextField_E" destination="Oia-qo-RvV" id="Pkr-ly-RF7"/>
+                        <outlet property="TextField_P" destination="Ebv-K9-zVX" id="ffK-FB-BUn"/>
+                        <outlet property="TextField_Q" destination="KGf-rE-S99" id="7eK-w8-bXy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lTh-cC-4ao" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286.9565217391305" y="-1109.5982142857142"/>
         </scene>
     </scenes>
 </document>
