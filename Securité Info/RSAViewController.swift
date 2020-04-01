@@ -21,7 +21,7 @@ class RSAViewController: UIViewController {
 //        mainDecryptRSA(m: x, p: 47, q: 71, e: 79)
         //detecZ(m: ["001245","3020","000"])
         //addZero(z: ["00","","00"], n: [1245,3020,0])
-        
+        setupTextField()
         
         
     }
@@ -348,11 +348,31 @@ class RSAViewController: UIViewController {
         }
     }
     
+    func setupTextField(){
+     
+        TextField_Claire.delegate = self
+        TextField_Crypt.delegate = self
+        TextField_P.delegate = self
+        TextField_Q.delegate = self
+        TextField_E.delegate = self
+        
+        
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
     
+    @objc private func hideKeyBoard(){
+        TextField_Claire.resignFirstResponder()
+        TextField_Crypt.resignFirstResponder()
+        TextField_Q.resignFirstResponder()
+        TextField_P.resignFirstResponder()
+        TextField_E.resignFirstResponder()
+    }
     
-    
-    
-    
-    
-    
+}
+extension RSAViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

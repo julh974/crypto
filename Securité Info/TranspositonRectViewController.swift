@@ -14,7 +14,7 @@ class TranspositonRectViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        setupTextField()
         
     }
     
@@ -224,5 +224,29 @@ class TranspositonRectViewController: UIViewController {
         TextField_Clair.text! = decrypt(mc: TexteField_crypt.text!, key: TextField_key.text!)
     }
     
+    func setupTextField(){
+        
+        TextField_Clair.delegate = self
+        TexteField_crypt.delegate = self
+        TextField_key.delegate = self
+           
+       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+       view.addGestureRecognizer(tapGesture)
+       }
        
+       @objc private func hideKeyBoard(){
+           TextField_Clair.resignFirstResponder()
+           TexteField_crypt.resignFirstResponder()
+        TextField_key.resignFirstResponder()
+       }
+    
+       
+}
+
+
+extension TranspositonRectViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

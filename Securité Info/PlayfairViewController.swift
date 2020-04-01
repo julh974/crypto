@@ -16,7 +16,7 @@ class PlayfairViewController: UIViewController {
         // Do any additional setup after loading the view.
 //        let tab = CreateTablePlayfair(k: "exemple playfair")
 //        Display(t: tab)
-        
+        setupTextField()
     }
     
 
@@ -180,6 +180,26 @@ class PlayfairViewController: UIViewController {
         TexteField_Clair.text! = MainDecryptPlayfair(message: TexteField_Crypt.text!, key: TexteField_key.text!)
     }
     
+    func setupTextField(){
+     
+        TexteField_Crypt.delegate = self
+        TexteField_Clair.delegate = self
+        TexteField_key.delegate = self
+            
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
     
+    @objc private func hideKeyBoard(){
+        TexteField_Clair.resignFirstResponder()
+        TexteField_Crypt.resignFirstResponder()
+        TexteField_key.resignFirstResponder()
+    }
     
+}
+extension PlayfairViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

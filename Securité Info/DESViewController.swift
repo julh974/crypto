@@ -15,11 +15,11 @@ class DESViewController: UIViewController {
         
         // le decryptage ne marche pas ..
         
-        let key =     "\\x0123456789abcdef"
-        let message = "Ok"
-       
-        
-        let cry = cryptDes(message: message, key: key)
+//        let key =     "\\x0123456789abcdef"
+//        let message = "Ok"
+//
+//
+//        let cry = cryptDes(message: message, key: key)
         //let decrypt = DecryptDes(message: message, key: key)
         
         //Comparaison des résultat:
@@ -27,6 +27,7 @@ class DESViewController: UIViewController {
         //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
         //11110011 01000101 01100011 00111111 00110001 10100110 01001000 01101010
         
+        setupTextField()
         
     }
     
@@ -765,5 +766,49 @@ class DESViewController: UIViewController {
         return t
     }
     
+ 
+    @IBOutlet weak var TextField_Claire: UITextField!
     
+    
+    @IBOutlet weak var TextField_key: UITextField!
+    
+    
+    
+    @IBOutlet weak var TextField_crypt: UITextField!
+    
+    
+    
+    
+    @IBAction func Btn_Crypt(_ sender: Any) {
+        TextField_crypt.text! = cryptDes(message: TextField_Claire.text!, key: TextField_key.text!)
+    }
+    
+    func setupTextField(){
+     
+        TextField_Claire.delegate = self
+        TextField_crypt.delegate = self
+        TextField_key.delegate = self
+        
+        
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyBoard(){
+        TextField_Claire.resignFirstResponder()
+        TextField_crypt.resignFirstResponder()
+        TextField_key.resignFirstResponder()
+    }
+    
+    
+
+    
+    
+}
+
+extension DESViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

@@ -14,6 +14,7 @@ class VigenereViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupTextField()
         
     }
     
@@ -134,4 +135,28 @@ class VigenereViewController: UIViewController {
         }
     }
     
+    
+    func setupTextField(){
+     
+        TextField_Claire.delegate = self
+        TextField_Cle.delegate = self
+        TextField_Crypt.delegate = self
+        
+        
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyBoard(){
+        TextField_Claire.resignFirstResponder()
+        TextField_Crypt.resignFirstResponder()
+        TextField_Cle.resignFirstResponder()
+    }
+    
+}
+extension VigenereViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

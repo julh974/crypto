@@ -14,8 +14,9 @@ class CesarViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print(mainCrypCesar(m: "abc", c: 1))
-        print(mainDecryptCesar(m: "bcd", c: 1))
+//        print(mainCrypCesar(m: "abc", c: 1))
+//        print(mainDecryptCesar(m: "bcd", c: 1))
+        setupTextField()
     }
     
 
@@ -91,10 +92,12 @@ class CesarViewController: UIViewController {
     }
     
     func mainCrypCesar(m : String, c : Int) -> String{
+        print(m,c)
         return concat(t: getAsciiChar(t: CrypCesar(cle: c, t: getAsciiInt(m: m))))
     }
     
     func mainDecryptCesar(m : String, c : Int) -> String{
+        print(m,c)
         return concat(t: getAsciiChar(t: DecrypCesar(cle: c, t: getAsciiInt(m: m))))
     }
     
@@ -116,8 +119,33 @@ class CesarViewController: UIViewController {
         if TextField_Cle.text!.isEmpty{
             TextField_Cle.text! = "0"
         }
+        //print(TextField_Crypt.text!,TextField_Cle.text!)
         if Character(TextField_Cle.text!).isNumber {
             TextField_Claire.text = mainDecryptCesar(m: TextField_Crypt.text!, c: Int(TextField_Cle.text!)!)
         }
+    }
+    
+    func setupTextField(){
+     
+        TextField_Claire.delegate = self
+        TextField_Crypt.delegate = self
+        TextField_Cle.delegate = self
+        
+        
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyBoard(){
+        TextField_Claire.resignFirstResponder()
+        TextField_Crypt.resignFirstResponder()
+        TextField_Cle.resignFirstResponder()
+    }
+    
+}
+extension CesarViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -325,10 +325,58 @@
                     <view key="view" contentMode="scaleToFill" id="Pp3-BI-4dp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message Claire" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGZ-qs-FUZ">
+                                <rect key="frame" x="10" y="138" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="clé" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MTU-fO-dlj">
+                                <rect key="frame" x="10" y="182" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message Crypter" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-ZR-zuN">
+                                <rect key="frame" x="10" y="226" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6K3-9W-bGQ">
+                                <rect key="frame" x="100" y="310" width="52" height="30"/>
+                                <state key="normal" title="Crypter"/>
+                                <connections>
+                                    <action selector="Btn_Crypt:" destination="YJN-aZ-5AM" eventType="touchUpInside" id="EgY-jm-dRb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0S-cq-cbZ">
+                                <rect key="frame" x="245" y="310" width="69" height="30"/>
+                                <state key="normal" title="Décrypter"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="MTU-fO-dlj" firstAttribute="top" secondItem="RGZ-qs-FUZ" secondAttribute="bottom" constant="10" id="59q-Yj-FX8"/>
+                            <constraint firstItem="RGZ-qs-FUZ" firstAttribute="top" secondItem="5yr-ZX-zS9" secondAttribute="top" constant="50" id="D6T-1x-TFk"/>
+                            <constraint firstItem="5yr-ZX-zS9" firstAttribute="trailing" secondItem="MTU-fO-dlj" secondAttribute="trailing" constant="10" id="EIp-1T-ZqZ"/>
+                            <constraint firstItem="RGZ-qs-FUZ" firstAttribute="leading" secondItem="5yr-ZX-zS9" secondAttribute="leading" constant="10" id="LxZ-bq-oVy"/>
+                            <constraint firstItem="6K3-9W-bGQ" firstAttribute="top" secondItem="p9v-ZR-zuN" secondAttribute="bottom" constant="50" id="RJk-hu-WoA"/>
+                            <constraint firstItem="5yr-ZX-zS9" firstAttribute="trailing" secondItem="O0S-cq-cbZ" secondAttribute="trailing" constant="100" id="RZa-75-cbJ"/>
+                            <constraint firstItem="p9v-ZR-zuN" firstAttribute="leading" secondItem="5yr-ZX-zS9" secondAttribute="leading" constant="10" id="SaB-AY-xbI"/>
+                            <constraint firstItem="5yr-ZX-zS9" firstAttribute="trailing" secondItem="p9v-ZR-zuN" secondAttribute="trailing" constant="10" id="XBV-uh-8fy"/>
+                            <constraint firstItem="O0S-cq-cbZ" firstAttribute="top" secondItem="p9v-ZR-zuN" secondAttribute="bottom" constant="50" id="gTj-4p-Rok"/>
+                            <constraint firstItem="5yr-ZX-zS9" firstAttribute="trailing" secondItem="RGZ-qs-FUZ" secondAttribute="trailing" constant="10" id="idU-TO-MQp"/>
+                            <constraint firstItem="MTU-fO-dlj" firstAttribute="leading" secondItem="5yr-ZX-zS9" secondAttribute="leading" constant="10" id="mj4-tI-ikH"/>
+                            <constraint firstItem="p9v-ZR-zuN" firstAttribute="top" secondItem="MTU-fO-dlj" secondAttribute="bottom" constant="10" id="plk-zW-J3O"/>
+                            <constraint firstItem="6K3-9W-bGQ" firstAttribute="leading" secondItem="5yr-ZX-zS9" secondAttribute="leading" constant="100" id="zqF-QJ-bq2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5yr-ZX-zS9"/>
                     </view>
                     <navigationItem key="navigationItem" title="DES" id="sRC-pY-aXr"/>
+                    <connections>
+                        <outlet property="TextField_Claire" destination="RGZ-qs-FUZ" id="hJW-Y8-4Rh"/>
+                        <outlet property="TextField_crypt" destination="p9v-ZR-zuN" id="tsE-iT-4t5"/>
+                        <outlet property="TextField_key" destination="MTU-fO-dlj" id="nGA-gb-C8m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACk-ef-4Md" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -431,7 +479,6 @@
                                 <rect key="frame" x="245" y="310" width="69" height="30"/>
                                 <state key="normal" title="Décrypter"/>
                                 <connections>
-                                    <action selector="Btn_Crypt:" destination="LWe-f3-Ovh" eventType="touchUpInside" id="0lQ-UK-HUb"/>
                                     <action selector="Btn_Decrypt:" destination="LWe-f3-Ovh" eventType="touchUpInside" id="3CP-xQ-6qQ"/>
                                 </connections>
                             </button>
@@ -575,6 +622,7 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Texte Clair" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1O-EG-Ndt">
                                 <rect key="frame" x="10" y="138" width="394" height="34"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -626,6 +674,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Xs-hN-lDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="rPJ-L8-Yl5"/>
             </objects>
             <point key="canvasLocation" x="535" y="-1291"/>
         </scene>

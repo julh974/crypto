@@ -16,18 +16,9 @@ class PolybeViewController: UIViewController {
        
 //        print(CryptPolybe(message: "bonjour"))
 //        print(DecryptPolyb(messageC: "12333224334336"))
+        setupTextField()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     //Le carré polybe aura 6*6 case afin d'avoir chaque lettre dans une case (26) et on pourra stocker par la suite les chiffre(10 : 1 à 6)
     func CreateSquarePolybe() -> [Array<String>] {//Créer le tableau Polye de 36 charactère de a à 0
@@ -106,6 +97,8 @@ class PolybeViewController: UIViewController {
         }
         return mess
     }
+    
+    
     @IBOutlet weak var TextField_Claire: UITextField!
     
     @IBOutlet weak var TextField_Crypt: UITextField!
@@ -122,7 +115,27 @@ class PolybeViewController: UIViewController {
         }
     }
     
-    
+    func setupTextField(){
+         
+        TextField_Claire.delegate = self
+        TextField_Crypt.delegate = self
+            
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        view.addGestureRecognizer(tapGesture)
+        }
+        
+        @objc private func hideKeyBoard(){
+            TextField_Claire.resignFirstResponder()
+            TextField_Crypt.resignFirstResponder()
+        }
+        
     
 
+}
+
+extension PolybeViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

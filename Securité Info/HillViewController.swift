@@ -13,22 +13,7 @@ class HillViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        //MainCryptHill(m: "\\x0a\\x05", k: "9457")
-        //print(getFirstNumber(nb: 25))
-        //print(pgcd(a: 43, b: 26))
-        //print(GetInverseMod(k: 43, mod: 26))
-        
-//        print(MainCryptHill(m: "ab", k: [3,5,6,17]))
-//        print(MainDecryptHill(m: "ñ\\x93", k: [3,5,6,17]))
-        print("test =  \(-12 % 256)")
-        let k = [9,4,5,7]
-        let c = MainCryptHill1(k: k, s: "bonjour les amis")
-        //print(CanBeUseHill(k: k, modulo: 256))
-       // print(GetInverseMod(k: calculKinverse(k: k), mod: 256))
-        //MainCryptHill1(k: k, s: "hell")
-        print(MainDecryptHill(m: c, k: k))
-        
+       setupTextField()
         
         
     }
@@ -310,6 +295,27 @@ class HillViewController: UIViewController {
         }
     }
     
+    func setupTextField(){
+     
+        TextField_Crypté.delegate = self
+        TextField_Clair.delegate = self
+        a.delegate = self
+        b.delegate = self
+        c.delegate = self
+        d.delegate = self
+            
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+    view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyBoard(){
+        TextField_Clair.resignFirstResponder()
+        TextField_Crypté.resignFirstResponder()
+        a.resignFirstResponder()
+        b.resignFirstResponder()
+        c.resignFirstResponder()
+        d.resignFirstResponder()
+    }
     
     
     
@@ -320,5 +326,10 @@ class HillViewController: UIViewController {
     
     
     
-    
+}
+extension HillViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

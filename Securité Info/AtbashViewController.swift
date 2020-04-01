@@ -103,17 +103,26 @@ class AtbashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("===============================")
-        let he = "hélo"
-        let h = Array(he)
-        var i : Int = 0
-        while i < h.count {
-            
-            print(" i = ",UnicodeScalar(String(h[i]))!.value)
-            i += 1
-        }
+        setupTextField()
+    }
     
+    func setupTextField(){
+        TextField_Crypt.delegate = self
+        TextField_Clair.delegate = self
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyBoard(){
+        TextField_Clair.resignFirstResponder()
+        TextField_Crypt.resignFirstResponder()
+    }
+    
+}
+extension AtbashViewController : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
